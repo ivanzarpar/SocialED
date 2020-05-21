@@ -27,6 +27,16 @@ def signup():
     return app.send_static_file('signup.html')
 
 
+# este codigo controla los errores de campos faltantes
+def process_missingFields(campos, next_page):
+    """
+    :param campos: Lista de Campos que faltan
+    :param next_page: ruta al pulsar botón continuar
+    :return: plantilla generada
+    """
+    return render_template("missingFields.html", inputs=campos, next=next_page)
+
+
 @app.route('/processLogin', methods=['GET', 'POST'])
 def processLogin():
     missing = []
@@ -36,7 +46,7 @@ def processLogin():
         if value is None:
             missing.append(field)
     if missing:
-        return "Warning: Some fields are missing"
+        return process_missingFields(missing, "/login")
 
     return '<!DOCTYPE html> ' \
            '<html lang="es">' \
@@ -61,7 +71,7 @@ def processSignup():
         if value is None:
             missing.append(field)
     if missing:
-        return "Warning: Some fields are missing"
+        return process_missingFields(missing, "/login")
 
     return '<!DOCTYPE html> ' \
            '<html lang="es">' \
@@ -88,7 +98,7 @@ def processHome():
         if value is None:
             missing.append(field)
     if missing:
-        return "Warning: Some fields are missing"
+        return process_missingFields(missing, "/login")
 
     return '<!DOCTYPE html> ' \
            '<html lang="es">' \

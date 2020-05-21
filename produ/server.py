@@ -18,6 +18,7 @@ def home():
 
 @app.route('/login', methods=['GET'])
 def login():
+
     return app.send_static_file('login.html')
 
 
@@ -92,6 +93,7 @@ def processHome():
     return '<!DOCTYPE html> ' \
            '<html lang="es">' \
            '<head>' \
+           '<link href="static/css/socialed-style.css" rel="stylesheet" type="text/css"/>'\
            '<title> Inicio - SocialED </title>' \
            '</head>' \
            '<body> <div id="container">' \

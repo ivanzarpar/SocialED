@@ -123,7 +123,7 @@ def processHome():
            '</body>' \
            '</html>'
 
-def load_user(email, passwd):
+def load_user(email, passwd, SITE_ROOT=None):
     """
     Carga datos usuario (identified by email) del directorio data.
     Busca un archivo de nombre el email del usuario
@@ -145,7 +145,7 @@ def load_user(email, passwd):
     session['friends'] = data['friends']
     return redirect(url_for("home"))
 
-def save_current_user():
+def save_current_user(SITE_ROOT=None):
     datos = {
         "user_name": session["user_name"],
         "password": session['password'],
@@ -158,7 +158,11 @@ def save_current_user():
         json.dump(datos, f)
 
 
-def create_user_file(name, email, passwd, passwd_confirmation):
+def process_error(param, param1):
+    pass
+
+
+def create_user_file(name, email, passwd, passwd_confirmation, SITE_ROOT=None):
     """
     Crea el fichero (en directorio /data). El nombre será el email.
     Si el fichero ya existe, error.

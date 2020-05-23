@@ -10,8 +10,6 @@ from time import time
 import sys
 from flask import Flask, session
 
-
-
 app = Flask(__name__)
 
 
@@ -27,7 +25,6 @@ def home():
 
 @app.route('/login', methods=['GET'])
 def login():
-
     return app.send_static_file('login.html')
 
 
@@ -102,7 +99,7 @@ def processHome():
     return '<!DOCTYPE html> ' \
            '<html lang="es">' \
            '<head>' \
-           '<link href="static/css/socialed-style.css" rel="stylesheet" type="text/css"/>'\
+           '<link href="static/css/socialed-style.css" rel="stylesheet" type="text/css"/>' \
            '<title> Inicio - SocialED </title>' \
            '</head>' \
            '<body> <div id="container">' \
@@ -122,6 +119,7 @@ def processHome():
            '</div></div>' \
            '</body>' \
            '</html>'
+
 
 def load_user(email, passwd, SITE_ROOT=None):
     """
@@ -145,11 +143,12 @@ def load_user(email, passwd, SITE_ROOT=None):
     session['friends'] = data['friends']
     return redirect(url_for("home"))
 
+
 def save_current_user(SITE_ROOT=None):
     datos = {
         "user_name": session["user_name"],
         "password": session['password'],
-        "messages": session['messages'], # lista de tuplas (time_stamp, mensaje)
+        "messages": session['messages'],  # lista de tuplas (time_stamp, mensaje)
         "email": session['email'],
         "friends": session['friends']
     }
@@ -179,9 +178,12 @@ def create_user_file(name, email, passwd, passwd_confirmation, SITE_ROOT=None):
         os.makedirs(directory)
     file_path = os.path.join(SITE_ROOT, "data/", email)
     if os.path.isfile(file_path):
-        return process_error("The email is already used, you must select a different email / Ya existe un usuario con ese nombre", url_for("signup"))
+        return process_error(
+            "The email is already used, you must select a different email / Ya existe un usuario con ese nombre",
+            url_for("signup"))
     if passwd != passwd_confirmation:
-        return process_error("Your password and confirmation password do not match / Las claves no coinciden", url_for("signup"))
+        return process_error("Your password and confirmation password do not match / Las claves no coinciden",
+                             url_for("signup"))
     datos = {
         "user_name": name,
         "password": passwd,
@@ -198,10 +200,7 @@ def create_user_file(name, email, passwd, passwd_confirmation, SITE_ROOT=None):
     return redirect(url_for("home"))
 
 
-
-
 app.secret_key = 'A0Zr98j/3yX R~XHH!jmN]LWX/,?RT'
 # start the server with the 'run()' method
 if __name__ == '__main__':
     app.run(debug=True, port=8001)
-

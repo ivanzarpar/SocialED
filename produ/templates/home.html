@@ -8,31 +8,31 @@
 <body>
 <div id="container">
     <a href="/">SocialED</a> | <a href="profile">Perfil</a> | <a href="login">Salir {{nickname}}</a>
-    <h1>Hola internauta, Qué tal estás?</h1>
-    <h2>{{ nickname}}</h2>
+    <h1>¡Hola {{ nickname}}! ¡Vamos a disfrutar!</h1>
+    <h2></h2>
     <div>
         <div id="left">
             <form action="home" method="post" name="envio">
-                <label for="message">Escribe algo...</label>
+                <label for="message">¿Qué te cuentas {{ nickname}}?</label>
                 <div class="inputs">
                     {% for message in messages %}
                     <li> {{ message[1] }}</li>
                     {% endfor %}
                 </div>
                 <input id="message" name="message" required="true"
-                       placeholder="Aquí tus bellas palabras..." maxlength="128" size="80"
+                       placeholder="Deja aquí tu mensaje" maxlength="128" size="80"
                        type="text" value=""/>
                 <input id="last" name="last" type="hidden" value=""/>
         </div>
         <div class="inputs">
-            <input id="post_submit" name="post_submit" type="submit" value="Post!"/>
+            <input id="post_submit" name="post_submit" type="submit" value="¡Vamos!"/>
         </div>
         </form>
     </div>
     <div id="right">
         <form>
             <label for="post">
-                Cosas de tus amistades...:
+                Tus amigos también disfrutan de SocialED
             </label>
             <div class="inputs">
                 {% for message in friends_messages %}
